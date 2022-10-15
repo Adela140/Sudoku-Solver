@@ -71,4 +71,15 @@ void display_board(const char board[9][9]) {
   print_frame(9);
 }
 
-/* add your functions here */
+/* QUESTION 1: function 'is_complete(board)', which checks if the Sudoku board is complete and returns false if any og the board positions are not occupied by a real number.*/
+
+bool is_complete(char board[9][9]){
+
+  for(int row=0; row<9; row++){
+    for(int column=0; column<9; column++){
+      if(!isdigit(board[row][column]))
+	 return 0;
+      }
+  }
+    return 1;
+}
