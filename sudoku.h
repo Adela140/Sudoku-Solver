@@ -10,5 +10,6 @@ bool digit_valid(char digit);
 bool square_check(const char position[], char digit, char board[9][9]);
 bool row_check(const char position[], char digit, char board[9][9]);
 bool column_check(const char position[], char digit, char board[9][9]);
+bool save_board(const char* filename, const char board[9][9]);
 
 #endif

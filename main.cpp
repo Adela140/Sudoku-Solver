@@ -23,7 +23,7 @@ int main() {
 
    cout << "=================== Question 1 ===================\n\n";
 
-  load_board("test.dat", board);
+  load_board("easy.dat", board);
   cout << "Board is ";
   if (!is_complete(board)) {
     cout << "NOT ";
@@ -37,75 +37,75 @@ int main() {
   }
   cout << "complete.\n\n";
   
-  cout << "=================== Question 2 ===================\n\n";
-
-  load_board("easy.dat", board);
-
-  // Should be OK
-  cout << "Putting '1' into I8 is ";
-  if (!make_move("I8", '1', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
-
-  // this should also be valid
-  cout << "Putting '2' into C7 is ";
-  if (!make_move("C7", '2', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
-
-  // this should not be valid - testing column check
-  cout << "Putting '8' into G6 is ";
-  if (!make_move("G6", '8', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
-
-  // this should not be valid - testing row check                                                                                 
-  cout << "Putting '4' into D7 is ";
-  if (!make_move("D7", '4', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
-
-  // this should not be valid - testing square check
-  cout << "Putting '6' into F3 is ";
-  if (!make_move("F3", '6', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
-  
-  // this shouldn't be valid since input not valid
-  cout << "Putting '9' into J2 is ";
-  if (!make_move("J2", '9', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
-
-  // this shouldn't be valid since input not valid
-  cout << "Putting '0' into E5 is ";
-  if (!make_move("E5", '0', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
-
-  // cout << "=================== Question 3 ===================\n\n";
+  // cout << "=================== Question 2 ===================\n\n";
 
   // load_board("easy.dat", board);
-  // if (save_board("easy-copy.dat", board)) {
-  //   cout << "Save board to 'easy-copy.dat' successful.\n";
-  // } else {
-  //   cout << "Save board failed.\n";
+
+  // // Should be OK
+  // cout << "Putting '1' into I8 is ";
+  // if (!make_move("I8", '1', board)) {
+  //   cout << "NOT ";
   // }
-  // cout << '\n';
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
+
+  // // this should also be valid
+  // cout << "Putting '2' into C7 is ";
+  // if (!make_move("C7", '2', board)) {
+  //   cout << "NOT ";
+  // }
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
+
+  // // this should not be valid - testing column check
+  // cout << "Putting '8' into G6 is ";
+  // if (!make_move("G6", '8', board)) {
+  //   cout << "NOT ";
+  // }
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
+
+  // // this should not be valid - testing row check                                                                                 
+  // cout << "Putting '4' into D7 is ";
+  // if (!make_move("D7", '4', board)) {
+  //   cout << "NOT ";
+  // }
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
+
+  // // this should not be valid - testing square check
+  // cout << "Putting '6' into F3 is ";
+  // if (!make_move("F3", '6', board)) {
+  //   cout << "NOT ";
+  // }
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
+  
+  // // this shouldn't be valid since input not valid
+  // cout << "Putting '9' into J2 is ";
+  // if (!make_move("J2", '9', board)) {
+  //   cout << "NOT ";
+  // }
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
+
+  // // this shouldn't be valid since input not valid
+  // cout << "Putting '0' into E5 is ";
+  // if (!make_move("E5", '0', board)) {
+  //   cout << "NOT ";
+  // }
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
+
+  cout << "=================== Question 3 ===================\n\n";
+
+  load_board("easy.dat", board);
+  if (save_board("easy-copy.dat", board)) {
+    cout << "Save board to 'easy-copy.dat' successful.\n";
+  } else {
+    cout << "Save board failed.\n";
+  }
+  cout << '\n';
 
   // cout << "=================== Question 4 ===================\n\n";
 

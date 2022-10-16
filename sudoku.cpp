@@ -83,6 +83,8 @@ bool is_complete(char board[9][9]){
   }
     return 1;
 }
+/* QUESTION 2: function 'make_move(position, digit, board) that attempts to place a digit on a Sudoku board at a gien position*/
+/* This function uses the following helper function: 'coordinates_valid(position)', 'digit_valid(digit)', 'square_check(position, digit, board)', 'row_check(position, digit, board)' and 'column_check(position, digit, row)'.*/
 
 bool make_move(const char position[], char digit, char board[9][9]){
   int row_index=position[0]-65;
@@ -120,7 +122,7 @@ bool digit_valid(char digit){
   return 0;
 }
 
-/* This boolean function checks whether the 3x3 square contains a certain digit, by setting the starting point of the for loop to the upper left corner of the appropriate square. */
+/* This boolean function checks whether the 3x3 square contains a certain digit, by setting the starting point of the for loop to the upper left corner of the appropriate square. It returns true when the digit does not already appear and the move is valid. */
 bool square_check(const char position[], char digit, char board[9][9]){
   int row_start, column_start;
   if(position[0]>='A' && position[0]<='C')
@@ -146,6 +148,7 @@ bool square_check(const char position[], char digit, char board[9][9]){
   return 1;
 }
 
+/* boolean function that checks if a certain digit does not already appear in a particular row on board. It returns true when the digit does not already appear and the move is valid.*/
 bool row_check(const char position[], char digit, char board[9][9]){
   int row_index= position[0]-65;
   for(int i=0; i<9; i++){
@@ -154,6 +157,7 @@ bool row_check(const char position[], char digit, char board[9][9]){
   }
   return 1;
 }
+/* boolean function that checks if a certain digit does not already appear in a particular column on board. It returns true when the digit does not already appear and the move is valid.*/
 
 bool column_check(const char position[], char digit, char board[9][9]){
   int column_index=position[1]-49;
@@ -162,4 +166,34 @@ bool column_check(const char position[], char digit, char board[9][9]){
       return 0;
   }
   return 1;
+}
+
+/* QUESTION 3 */
+
+bool save_board(const char* filename, const char board[9][9]){
+
+  ofstream out(filename);
+  if(!out){
+    cout<<"Failed!"<<endl;
+    return 0;
+   }
+  assert(out);
+  
+  int row;
+  while(out && row<9){
+    for(int n=0; n<9; n++){
+      if (!(board[row][n] == '.' || isdigit(board[row][n])))
+	return 0;
+      assert(board[row][n] == '.' || isdigit(board[row][n]));
+      out.put(board[row][n]);
+    }
+    out.put('\n');
+    row++;
+  }
+  assert(row==9);
+  if (row==9)
+    return 1;
+
+  return 0;
+
 }
