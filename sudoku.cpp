@@ -179,7 +179,7 @@ bool save_board(const char* filename, const char board[9][9]){
    }
   assert(out);
   
-  int row;
+  int row=0;
   while(out && row<9){
     for(int n=0; n<9; n++){
       if (!(board[row][n] == '.' || isdigit(board[row][n])))
@@ -190,10 +190,66 @@ bool save_board(const char* filename, const char board[9][9]){
     out.put('\n');
     row++;
   }
+  if (row!=9)
+    return 0;
+
   assert(row==9);
-  if (row==9)
-    return 1;
-
-  return 0;
-
+  return 1;
+  out.close();
 }
+bool solve_board(char board[9][9]){
+
+  char position[3];
+  int row=0, column=0;
+  
+  if(is_complete(board)){
+    return 1;
+  }
+  // find empty position //
+  // while(board[row][column]!='.' && row<9){
+  //   column++;
+  //   if(column==9){
+  //     row++;
+  //     column=0;
+  //   }
+  // }
+  // for(row=0; row<9; row++){
+  //   for(column=0; column<9; column++){
+  //     if (board[row][column]=='.'){
+  // 	break;
+  //     }
+  //   }break;
+  // }
+  find_empty_position(row,column,position,board);
+  // position[0]=(char) row+65;
+  // position[1]=(char) column+49;
+  // position[2]='\0';
+  
+  // For the empty position, try each digit from 1 to 9//
+  for(char digit='1'; digit<='9'; digit++){
+    if(make_move(position,digit,board)){
+      if(solve_board(board))
+	return 1;
+    }
+  }
+
+  // If it was unsuccessful, set the assign '.' to the board index.//
+  board[row][column]='.';
+  return 0;
+} 
+
+void find_empty_position(int &row, int &column, char position[], char board[9][9]){
+  for(row=0; row<9; row++){
+    for(column=0; column<9; column++){
+      if (board[row][column]=='.'){
+        position[0]=(char) row+65;
+	position[1]=(char) column+49;
+	position[2]='\0';
+	return;
+      }
+    }
+  }
+}
+  
+  
+ 

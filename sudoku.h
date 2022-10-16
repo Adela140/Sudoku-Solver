@@ -11,5 +11,7 @@ bool square_check(const char position[], char digit, char board[9][9]);
 bool row_check(const char position[], char digit, char board[9][9]);
 bool column_check(const char position[], char digit, char board[9][9]);
 bool save_board(const char* filename, const char board[9][9]);
-
+bool solve_board(char board[9][9]);
+void fill_board(char board[9][9], int row_index, int column_index);
+void find_empty_position(int &row, int &column, char position[], char board[9][9]);
 #endif
