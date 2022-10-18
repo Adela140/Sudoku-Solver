@@ -1,1 +1,52 @@
 Summarise your findings here (see specification).
+To determine the difficulty of each of the boards, I consider how many
+times the recursive functiion solve_board(board) has to be called and
+also how many times the function makes a mistake and has to backtrack. The
+latter former also includes the number of times another empty spot has
+to be found and hence takes into account how empty the board was at the
+start. It is important to note that the difficulty would probably be
+different for a human who solves the board using a different
+algorithm; however, the 'depth' and 'backtrack_count' variables should
+indicate the difficulty of the boards for a computer using this
+backtracking algortihm (difficulty being
+relative to the other boards).
+
+To track the number of times the 'solve_board(board) function is
+called, a static integer 'depth' is added at the start of the 'solve_board(board)' function. It is
+incremented every time the function is called and printed out on the
+screen (this is is now commented-out in the function definition):
+
+	    static int depth =0;
+  	    depth++;
+  	    cout<< "depth = " << depth <<endl;
+
+Similarly, the static integer 'backtrack_count' is incremented
+every time the solve_board(board) function was unsuccessful at
+'guessing' a certain digit and has to backtrack and assign '.' to the
+position. The following is added after the position is set back to
+'.':
+	 backtrack_count++;
+	 cout<< backtrack_count<<endl;
+
+However, it is important to only solve one board at a time, otherwise
+depth will be cummulative.
+
+HARD DIFFICULTY
+This is mystery3.dat. The value of the depth integer is 14134 once
+the board has been solved. This means the function was called 14134
+times in order to solve the board.
+
+
+EXTREMELY HARD DIFFICULTY
+This is mystery1.dat. The value of the depth integer is 421547 by the
+time the board is solved. As this value is larger than for the hard
+board mystery3.dat, it means mystery1.dat is extremely hard.
+
+
+IMPOSSIBLE TO SOLVE
+This is mystery2.dat. The 'solve_board(board)' function returns false
+for this board.
+
+These findings are consistent with values of 'depth' for the easy.dat
+and medium.dat boards. The board easy.dat has a depth value of 2172
+and the medium.dat board has a depth value of 15662. 

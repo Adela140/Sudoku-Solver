@@ -58,7 +58,7 @@ void print_row(const char* data, int row) {
 }
 
 /* pre-supplied function to display a Sudoku board */
-void display_board(char board[9][9]) {
+void display_board(const char board[9][9]) {
   cout << "    ";
   for (int r=0; r<9; r++) {
     cout << (char) ('1'+r) << "   ";
@@ -71,7 +71,7 @@ void display_board(char board[9][9]) {
   print_frame(9);
 }
 
-/* QUESTION 1: function 'is_complete(board)', which checks if the Sudoku board is complete and returns false if any og the board positions are not occupied by a real number.*/
+/* QUESTION 1: function 'is_complete(board)', which checks if the Sudoku board is complete and returns false if any of the board positions are not occupied by a real number.*/
 
 bool is_complete(char board[9][9]){
 
@@ -89,6 +89,12 @@ bool is_complete(char board[9][9]){
 bool make_move(const char position[], char digit, char board[9][9]){
   int row_index=position[0]-65;
   int column_index=position[1]-49;
+
+  // making sure that the posiytion is empty. If not empty, return 0 and move is invalid.
+  if(board[row_index][column_index]!='.') {
+    cout << "Illegal move: Position filled " << position << " " << row_index << " " << column_index << endl;
+    return 0;
+  }
   
   if(!coordinates_valid(position)){
       return 0;
@@ -174,17 +180,17 @@ bool save_board(const char* filename, const char board[9][9]){
 
   ofstream out(filename);
   if(!out){
-    cout<<"Failed!"<<endl;
+    //cout<<"Failed!"<<endl;
     return 0;
    }
-  assert(out);
+  // assert(out);
   
   int row=0;
   while(out && row<9){
     for(int n=0; n<9; n++){
       if (!(board[row][n] == '.' || isdigit(board[row][n])))
 	return 0;
-      assert(board[row][n] == '.' || isdigit(board[row][n]));
+      //assert(board[row][n] == '.' || isdigit(board[row][n]));
       out.put(board[row][n]);
     }
     out.put('\n');
@@ -193,52 +199,44 @@ bool save_board(const char* filename, const char board[9][9]){
   if (row!=9)
     return 0;
 
-  assert(row==9);
-  return 1;
+  //assert(row==9);
   out.close();
+  return 1;
+ 
 }
-bool solve_board(char board[9][9]){
 
+/*QUESTION 4*/
+bool solve_board(char board[9][9]){
+  static int backtrack_count=0;
+  static int depth =0;
+  depth++;
+  cout<< "depth = " << depth<<endl;
+
+  
   char position[3];
   int row=0, column=0;
   
   if(is_complete(board)){
     return 1;
   }
-  // find empty position //
-  // while(board[row][column]!='.' && row<9){
-  //   column++;
-  //   if(column==9){
-  //     row++;
-  //     column=0;
-  //   }
-  // }
-  // for(row=0; row<9; row++){
-  //   for(column=0; column<9; column++){
-  //     if (board[row][column]=='.'){
-  // 	break;
-  //     }
-  //   }break;
-  // }
+  // Find the next empty position. This void function changes row and column.
   find_empty_position(row,column,position,board);
-  // position[0]=(char) row+65;
-  // position[1]=(char) column+49;
-  // position[2]='\0';
   
-  // For the empty position, try each digit from 1 to 9//
+  // For the empty position, try each digit from 1 to 9
   for(char digit='1'; digit<='9'; digit++){
     if(make_move(position,digit,board)){
       if(solve_board(board))
 	return 1;
+      // If it was unsuccessful, assign '.' to the board index.//
+      board[row][column]='.';
+      backtrack_count++;
+      cout<< backtrack_count<<endl;
     }
   }
-
-  // If it was unsuccessful, set the assign '.' to the board index.//
-  board[row][column]='.';
   return 0;
 } 
 
-void find_empty_position(int &row, int &column, char position[], char board[9][9]){
+void find_empty_position(int &row, int &column, char position[], const char board[9][9]){
   for(row=0; row<9; row++){
     for(column=0; column<9; column++){
       if (board[row][column]=='.'){

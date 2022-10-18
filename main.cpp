@@ -11,15 +11,15 @@ int main() {
   char board[9][9];
 
   /* This section illustrates the use of the pre-supplied helper functions. */
-  cout << "============= Pre-supplied functions =============\n\n";
+  // cout << "============= Pre-supplied functions =============\n\n";
 
-  cout << "Calling load_board():\n";
-  load_board("easy.dat", board);
+  // cout << "Calling load_board():\n";
+  // load_board("easy.dat", board);
 
-  cout << '\n';
-	cout << "Displaying Sudoku board with display_board():\n";
-  display_board(board);
-  cout << "Done!\n\n";
+  // cout << '\n';
+  // 	cout << "Displaying Sudoku board with display_board():\n";
+  // display_board(board);
+  // cout << "Done!\n\n";
 
    // cout << "=================== Question 1 ===================\n\n";
 
@@ -37,17 +37,17 @@ int main() {
   // }
   // cout << "complete.\n\n";
   
-  cout << "=================== Question 2 ===================\n\n";
+  // cout << "=================== Question 2 ===================\n\n";
 
-  load_board("easy.dat", board);
+  // load_board("easy.dat", board);
 
-  // Should be OK
-  cout << "Putting '1' into I8 is ";
-  if (!make_move("I8", '1', board)) {
-    cout << "NOT ";
-  }
-  cout << "a valid move. The board is:\n";
-  display_board(board);
+  // // Should be OK
+  // cout << "Putting '1' into I8 is ";
+  // if (!make_move("I8", '1', board)) {
+  //   cout << "NOT ";
+  // }
+  // cout << "a valid move. The board is:\n";
+  // display_board(board);
 
   // // this should also be valid
   // cout << "Putting '2' into C7 is ";
@@ -107,11 +107,73 @@ int main() {
   // }
   // cout << '\n';
 
-  cout << "=================== Question 4 ===================\n\n";
+  //cout << "=================== Question 4 ===================\n\n";
 
+  // load_board("easy.dat", board);
+  // if (solve_board(board)) {
+  //   cout << "The 'easy' board has a solution:\n";
+  //   display_board(board);
+  // } else {
+  //   cout << "A solution cannot be found.\n";
+  //   display_board(board);
+  // }
+  // cout << '\n';
+
+  // load_board("medium.dat", board);
+  // if (solve_board(board)) {
+  //   cout << "The 'medium' board has a solution:\n";
+  //   display_board(board);
+  // } else {
+  //   cout << "A solution cannot be found.\n";
+  // }
+  // cout << '\n';
+
+  // // // write more tests
+
+  cout << "=================== Question 5 ===================\n\n";
+  //The difficulty of a board is determined by the number of times
+  // the recursive function 'solve_board(board)' is called when solving the board.
+  // This number is stored in a static integer 'depth'.
+  
+  //MYSTERY1.DAT: the depth is 421547.
+  load_board("mystery1.dat", board);
+  if (solve_board(board)) {
+    cout << "The mystery1 board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
+
+  //MYSTERY2.DAT: imossible to solve
+  load_board("mystery2.dat", board);
+  if (solve_board(board)) {
+    cout << "The mystery2 board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
+
+  //MYSTERY3.DAT: the depth is 14134
+  load_board("mystery3.dat", board);
+  if (solve_board(board)) {
+    cout << "The mystery3 board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
+
+  //TESTING EASY.DAT AND MEDIUM.DAT FOR CONSISTENCY //
+  
+  //EASY.DAT: the depth is 2172
   load_board("easy.dat", board);
   if (solve_board(board)) {
-    cout << "The 'easy' board has a solution:\n";
+    cout << "The easy.dat board has a solution:\n";
     display_board(board);
   } else {
     cout << "A solution cannot be found.\n";
@@ -119,19 +181,18 @@ int main() {
   }
   cout << '\n';
 
-  load_board("medium.dat", board);
+  // MEDIUM.DAT: the depth is 15662
+   load_board("medium.dat", board);
   if (solve_board(board)) {
-    cout << "The 'medium' board has a solution:\n";
+    cout << "The medium.dat board has a solution:\n";
     display_board(board);
   } else {
     cout << "A solution cannot be found.\n";
+    display_board(board);
   }
   cout << '\n';
 
-  // // write more tests
-
-  // cout << "=================== Question 5 ===================\n\n";
-
+  
   // // write more tests
 
   return 0;
