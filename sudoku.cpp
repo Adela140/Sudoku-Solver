@@ -230,7 +230,7 @@ bool solve_board(char board[9][9]){
       // If it was unsuccessful, assign '.' to the board index.//
       board[row][column]='.';
       backtrack_count++;
-      cout<< backtrack_count<<endl;
+      cout<< "Backtrack_count= "<< backtrack_count<<endl;
     }
   }
   return 0;

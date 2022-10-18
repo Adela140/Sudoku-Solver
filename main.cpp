@@ -135,29 +135,29 @@ int main() {
   // the recursive function 'solve_board(board)' is called when solving the board.
   // This number is stored in a static integer 'depth'.
   
-  //MYSTERY1.DAT: the depth is 421547.
-  load_board("mystery1.dat", board);
-  if (solve_board(board)) {
-    cout << "The mystery1 board has a solution:\n";
-    display_board(board);
-  } else {
-    cout << "A solution cannot be found.\n";
-    display_board(board);
-  }
-  cout << '\n';
+  //MYSTERY1.DAT: depth = 421547 and backtrack_count=421488.
+  // load_board("mystery1.dat", board);
+  // if (solve_board(board)) {
+  //   cout << "The mystery1 board has a solution:\n";
+  //   display_board(board);
+  // } else {
+  //   cout << "A solution cannot be found.\n";
+  //   display_board(board);
+  // }
+  // cout << '\n';
 
-  //MYSTERY2.DAT: imossible to solve
-  load_board("mystery2.dat", board);
-  if (solve_board(board)) {
-    cout << "The mystery2 board has a solution:\n";
-    display_board(board);
-  } else {
-    cout << "A solution cannot be found.\n";
-    display_board(board);
-  }
-  cout << '\n';
+  // //MYSTERY2.DAT: imossible to solve
+  // load_board("mystery2.dat", board);
+  // if (solve_board(board)) {
+  //   cout << "The mystery2 board has a solution:\n";
+  //   display_board(board);
+  // } else {
+  //   cout << "A solution cannot be found.\n";
+  //   display_board(board);
+  // }
+  // cout << '\n';
 
-  //MYSTERY3.DAT: the depth is 14134
+  // //MYSTERY3.DAT: depth = 14134 and backtrack_count=14076
   load_board("mystery3.dat", board);
   if (solve_board(board)) {
     cout << "The mystery3 board has a solution:\n";
@@ -168,29 +168,29 @@ int main() {
   }
   cout << '\n';
 
-  //TESTING EASY.DAT AND MEDIUM.DAT FOR CONSISTENCY //
+  // //TESTING EASY.DAT AND MEDIUM.DAT FOR CONSISTENCY //
   
-  //EASY.DAT: the depth is 2172
-  load_board("easy.dat", board);
-  if (solve_board(board)) {
-    cout << "The easy.dat board has a solution:\n";
-    display_board(board);
-  } else {
-    cout << "A solution cannot be found.\n";
-    display_board(board);
-  }
-  cout << '\n';
+  // //EASY.DAT: the depth is 2172
+  // load_board("easy.dat", board);
+  // if (solve_board(board)) {
+  //   cout << "The easy.dat board has a solution:\n";
+  //   display_board(board);
+  // } else {
+  //   cout << "A solution cannot be found.\n";
+  //   display_board(board);
+  // }
+  // cout << '\n';
 
-  // MEDIUM.DAT: the depth is 15662
-   load_board("medium.dat", board);
-  if (solve_board(board)) {
-    cout << "The medium.dat board has a solution:\n";
-    display_board(board);
-  } else {
-    cout << "A solution cannot be found.\n";
-    display_board(board);
-  }
-  cout << '\n';
+  // // MEDIUM.DAT: the depth is 15662
+  //  load_board("medium.dat", board);
+  // if (solve_board(board)) {
+  //   cout << "The medium.dat board has a solution:\n";
+  //   display_board(board);
+  // } else {
+  //   cout << "A solution cannot be found.\n";
+  //   display_board(board);
+  // }
+  // cout << '\n';
 
   
   // // write more tests

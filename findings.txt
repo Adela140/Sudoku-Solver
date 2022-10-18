@@ -1,4 +1,9 @@
 Summarise your findings here (see specification).
+
+FINDIGS:
+
+METHOD:
+
 To determine the difficulty of each of the boards, I consider how many
 times the recursive functiion solve_board(board) has to be called and
 also how many times the function makes a mistake and has to backtrack. The
@@ -26,27 +31,35 @@ every time the solve_board(board) function was unsuccessful at
 position. The following is added after the position is set back to
 '.':
 	 backtrack_count++;
-	 cout<< backtrack_count<<endl;
+	 cout<< "Backtrack_count= "<< backtrack_count<<endl;
 
-However, it is important to only solve one board at a time, otherwise
-depth will be cummulative.
+The difference between these two static variables is simply the number
+of empty spaces at the beginning plus one (for when the function is
+called at the end and all positions are filled). 
 
 HARD DIFFICULTY
 This is mystery3.dat. The value of the depth integer is 14134 once
-the board has been solved. This means the function was called 14134
-times in order to solve the board.
+the board has been solved, and the backtrack_count is 14076. This means the function was called 14134
+times in order to solve the board, including 14076 times that it 'made
+a mistake' at guessing the digit and had to backtrack.
 
 
 EXTREMELY HARD DIFFICULTY
 This is mystery1.dat. The value of the depth integer is 421547 by the
-time the board is solved. As this value is larger than for the hard
-board mystery3.dat, it means mystery1.dat is extremely hard.
+time the board is solved, and the backtrack_count is 421488. As these
+values are larger than for the board mystery3.dat, it means
+mystery1.dat is extremely hard as the solve_board(board) function made
+more mistakes and had to backtrack more times. 
 
 
 IMPOSSIBLE TO SOLVE
 This is mystery2.dat. The 'solve_board(board)' function returns false
 for this board.
 
-These findings are consistent with values of 'depth' for the easy.dat
+These findings are consistent with values of 'depth' and
+'backtrack_count' for the easy.dat
 and medium.dat boards. The board easy.dat has a depth value of 2172
-and the medium.dat board has a depth value of 15662. 
+and the medium.dat board has a depth value of 15662.
+
+However, it is important to note that these measurements of difficulty
+are simply from the computer perspective.
