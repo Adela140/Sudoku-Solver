@@ -71,66 +71,102 @@ void display_board(const char board[9][9]) {
   print_frame(9);
 }
 
-/* QUESTION 1: function 'is_complete(board)', which checks if the Sudoku board is complete and returns false if any of the board positions are not occupied by a real number.*/
+/* Creating a new type 'Logical', where false=0 and true=1 */
+enum Logical {False, True};
+
+/*=================== QUESTION 1 ===================*/
+
+/* DEFINITION OF FUNCTION 'is_complete(board)' */
+/* The function returns false if any of the board positions in 
+   the 9x9 board matrix are not occupied by a character between 
+   '1' and '9', and returns true otherwise*/
 
 bool is_complete(char board[9][9]){
 
   for(int row=0; row<9; row++){
     for(int column=0; column<9; column++){
-      if(!isdigit(board[row][column]))
-	 return 0;
+      // return false if not a digit or if equal to '0'.
+      if(!isdigit(board[row][column]) || board[row][column]=='0') 
+	 return False;
       }
   }
-    return 1;
+    return True;
 }
-/* QUESTION 2: function 'make_move(position, digit, board) that attempts to place a digit on a Sudoku board at a gien position*/
-/* This function uses the following helper function: 'coordinates_valid(position)', 'digit_valid(digit)', 'square_check(position, digit, board)', 'row_check(position, digit, board)' and 'column_check(position, digit, row)'.*/
+/* END OF FUNCTION DEFINITION */
+
+/* =================== QUESTION 2 =================== */
+
+/* FUNCTION DEFINITION OF 'make_move(position, digit, board)'*/
+/* It attempts to place a digit on a Sudoku board at a given position */
+/* This function returns false if:
+   1) the digit is already present in the given row, column or the 3x3 sub-board, or
+   2) the arguments passed for position (coordinates) or digit are not valid, or
+   3) the position is already occupied */
+/* Otherwise it returns true and the board is updated to contain the digit at the particular position */
+/* This function uses the following helper functions:
+   'coordinates_valid(position)', 'digit_valid(digit)', 'subboard_check(position, digit, board)', 
+   'row_check(position, digit, board)' and 'column_check(position, digit, row)'.*/
 
 bool make_move(const char position[], char digit, char board[9][9]){
-  int row_index=position[0]-65;
-  int column_index=position[1]-49;
+  // Convert the characters in 'position' to integer indeces
+  int row_index=position[0]-'A';
+  int column_index=position[1]-'1';
 
-  // making sure that the posiytion is empty. If not empty, return 0 and move is invalid.
+  // Check if the position is empty (contains '.'). If not empty, return false and move is invalid
   if(board[row_index][column_index]!='.') {
-    cout << "Illegal move: Position filled " << position << " " << row_index << " " << column_index << endl;
-    return 0;
+    return False;
   }
-  
+
+  // Check if the position passed into the function is valid. Return false position is out of range
   if(!coordinates_valid(position)){
-      return 0;
+      return False;
   }
+
+  // Check if the digit passed into the function is valid. Return false if digit is out of range
   if(!digit_valid(digit)){
-      return 0;
+      return False;
   }
-  
-  if(square_check(position, digit, board) && row_check(position,digit,board) && column_check(position,digit,board)){
+
+  // Return true if the move is valid with respect to the relevant sub-board, row and column.
+  if(subboard_check(position, digit, board) && row_check(position,digit,board) && column_check(position,digit,board)){
     board[row_index][column_index]=digit;
-    return 1;
+    return True;
   }
-  return 0;
+  return False;
 }
+/* END OF FUNCTION DEFINITION */
     
-/* boolean function that checks if the board coordinates are valid coordinates*/
+/* FUNCTION DEFINITION OF 'coordinates_valid(position)' */
+/* Returns true if the coordinates of the position are in range */
+/* Returns false if the argument for position is more than 2 characters (not including the sentinel character), or 
+   if the first character is not between 'A' to 'I', or if the second character is not between '1' to '9'.*/
 bool coordinates_valid(const char position[]){
   if (strlen(position)==2){
     if (position[0]>='A' && position[0]<='I'){
-      if(position[1]>='1' && position[1]<='9')
-        return 1;
+      if (position[1]>='1' && position[1]<='9')
+        return True;
   }
   }
-  return 0;
+  return False;
 }
+/* END OF FUNCTION DEFINITION */
 
-/* boolean funciton which checks if the digit to be placed in the board is valid*/
+/* FUNCTION DEFINITION OF 'digit_valid(digit)'*/
+/* Returns true if digit lies between '1' and '9'; otherwise returns false */
 bool digit_valid(char digit){
   if(digit>='1' && digit<='9')
-    return 1;
-  return 0;
+    return True;
+  return False;
 }
+/* END OF FUNCTION DEFINITION */
 
-/* This boolean function checks whether the 3x3 square contains a certain digit, by setting the starting point of the for loop to the upper left corner of the appropriate square. It returns true when the digit does not already appear and the move is valid. */
-bool square_check(const char position[], char digit, char board[9][9]){
+/* FUNCTION DEFINITION OF 'subboard_check(position, digit, board)'*/
+/* It checks whether the 3x3 square contains digit, by setting the starting point to the upper left 
+   corner of the appropriate sub-board square and interating through the sub-board.*/
+/* Returns true when the digit does not already appear in the square so the move is valid, otherwise returns false */
+bool subboard_check(const char position[], char digit, const char board[9][9]){
   int row_start, column_start;
+  // set row_start to the first row in the appropriate sub-board
   if(position[0]>='A' && position[0]<='C')
     row_start=0;
   else if(position[0]>='D' && position[0]<='F')
@@ -138,6 +174,7 @@ bool square_check(const char position[], char digit, char board[9][9]){
   else
     row_start=6;
 
+  // set column_start to the first column in the appropriate sub-board
   if(position[1]>='1' && position[1]<='3')
     column_start=0;
   else if(position[1]>='4' && position[1]<='6')
@@ -145,109 +182,143 @@ bool square_check(const char position[], char digit, char board[9][9]){
   else
     column_start=6;
 
+  // iterate through the sub-board and return false if digit is present
   for(int i=row_start;i<row_start+3; i++){
     for(int j=column_start; j<column_start+3; j++){
       if(board[i][j]==digit)
-	return 0;
+	return False;
     }
   }
-  return 1;
+  // if digit not present in the sub-board, return true
+  return True;
 }
+/* END OF FUNCTION DEFINITION*/
 
-/* boolean function that checks if a certain digit does not already appear in a particular row on board. It returns true when the digit does not already appear and the move is valid.*/
-bool row_check(const char position[], char digit, char board[9][9]){
-  int row_index= position[0]-65;
-  for(int i=0; i<9; i++){
-    if(board[row_index][i]==digit)
-      return 0;
+/* FUNCTION DEFINITION OF 'row_check(position, digit, board)'*/
+/* Returns true when the digit does not already appear in the relevant row, otherwise returns false */
+bool row_check(const char position[], char digit, const char board[9][9]){
+  // convert the first character in position to integer indicating the row index
+  int row_index= position[0]-'A';
+  // iterate through the row and return false if digit is present
+  for(int column=0; column<9; column++){
+    if(board[row_index][column]==digit)
+      return False;
   }
-  return 1;
+  // if digit not present in the row, return true
+  return True;
 }
-/* boolean function that checks if a certain digit does not already appear in a particular column on board. It returns true when the digit does not already appear and the move is valid.*/
+/* END OF FUNCTION DEFINITION */
 
-bool column_check(const char position[], char digit, char board[9][9]){
-  int column_index=position[1]-49;
-  for(int i=0; i<9; i++){
-    if(board[i][column_index]==digit)
-      return 0;
+/* FUNCTION DEFINITION OF 'column_check(position, digit, board)'*/
+/*  Returns true when the digit does not already appear in the relevant column, otherwise returns false */
+bool column_check(const char position[], char digit, const char board[9][9]){
+  // convert the second character in position to integer indicating the column index
+  int column_index=position[1]-'1';
+  // iterate through the column and return false if digit is present
+  for(int row=0; row<9; row++){
+    if(board[row][column_index]==digit)
+      return False;
   }
-  return 1;
+  // if digit not present in the column, return true
+  return True;
 }
+/* END OF FUNCTION DEFINITION */
 
-/* QUESTION 3 */
+/* =================== QUESTION 3 =================== */
 
+/* FUNCTION DEFINITION OF 'save_board(filename, board)'*/
+/* Outputs board into file called filename */
+/* Returns true if it has been output successfully, otherwise returns false*/
 bool save_board(const char* filename, const char board[9][9]){
 
   ofstream out(filename);
+  // return false if filename is read-only
   if(!out){
-    //cout<<"Failed!"<<endl;
-    return 0;
+    return False;
    }
-  // assert(out);
   
   int row=0;
   while(out && row<9){
-    for(int n=0; n<9; n++){
-      if (!(board[row][n] == '.' || isdigit(board[row][n])))
-	return 0;
-      //assert(board[row][n] == '.' || isdigit(board[row][n]));
-      out.put(board[row][n]);
+    for(int column=0; column<9; column++){
+      // return false if the board contains a character that is neither '.' or a digit, or if it contains '0'.
+      if (!(board[row][column] == '.' || isdigit(board[row][column])) || board[row][column]=='0')
+	return False;
+      out.put(board[row][column]);
     }
     out.put('\n');
     row++;
   }
+  // return false if we are not at the end of the whole board
   if (row!=9)
-    return 0;
+    return False;
 
-  //assert(row==9);
+  // if saving was successful, disconnect the output stream and return true
   out.close();
-  return 1;
+  return True;
  
 }
+/* END OF FUNCTION DEFINITION */
 
-/*QUESTION 4*/
+/* =================== QUESTION 4 =================== */
+
+/* FUNCTION DEFINITION OF 'solve_board(board)'*/
+/* Attempts to solve the puzzle recursively */
+/* Returns true if a solution is found, leaving board with the solution */
+/* Returns false if solution is not found and leaves board in the original state*/
+/* Uses a helper function find_empty_position(row,column,position,board) */
+/* Note: the static variables used for Question 5 have been commented out */
 bool solve_board(char board[9][9]){
+
+  /* STATIC VARIBLES USED FOR QUESTION 5 */
   static int backtrack_count=0;
   static int depth =0;
   depth++;
-  cout<< "depth = " << depth<<endl;
+  cout<< "depth = " << depth<<endl; 
 
-  
-  char position[3];
   int row=0, column=0;
-  
+
+  // return true if board has been completed
   if(is_complete(board)){
-    return 1;
+    return True;
   }
-  // Find the next empty position. This void function changes row and column.
-  find_empty_position(row,column,position,board);
+  // find the next empty position. This void function changes row and column
+  find_empty_position(row,column,board);
   
-  // For the empty position, try each digit from 1 to 9
+  // for the empty position, try each digit from '1' to '9'
   for(char digit='1'; digit<='9'; digit++){
+    // convert row and column of empty index to valid 'position' argument (of type char)
+    char position[]={(char)(row+'A'),(char)(column+'1')};
+    // if it is valid to place digit in position, call the solve_board function again, which will try to input a digit for the next empty position etc.
+    // this will repeat until the board is complete
+    // Returns true if it assigned the correct digit, given all the following empty positions have also been assigned the correct digit
     if(make_move(position,digit,board)){
       if(solve_board(board))
-	return 1;
-      // If it was unsuccessful, assign '.' to the board index.//
+	return True;
+      
+      // If it was unsuccessful, assign '.' to the board index.
       board[row][column]='.';
+      
+      /* STATIC VARIABLE USED TO COUNT BACKTRACKING FOR QUESTION 5*/
       backtrack_count++;
       cout<< "Backtrack_count= "<< backtrack_count<<endl;
     }
   }
-  return 0;
-} 
+  // If none of the digits are valid for the position, return false
+  return False;
+}
+/* END OF FUNCTION DEFINITION */
 
-void find_empty_position(int &row, int &column, char position[], const char board[9][9]){
+/* FUNCTION DEFINITION OF 'find_empty_position(row,column,board)*/
+/* As row and column are reference parameters, they are changed as we iterate through the board matrix */
+void find_empty_position(int &row, int &column, const char board[9][9]){
   for(row=0; row<9; row++){
     for(column=0; column<9; column++){
-      if (board[row][column]=='.'){
-        position[0]=(char) row+65;
-	position[1]=(char) column+49;
-	position[2]='\0';
+      // when an empty position is found (containing '.'), return the function
+      if (board[row][column]=='.')
 	return;
-      }
     }
   }
 }
-  
+/* END OF FUNCTION DEFINITION */
   
  
