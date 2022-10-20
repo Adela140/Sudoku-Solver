@@ -33,4 +33,5 @@ bool solve_board(char board[9][9]);
 
 /* FUNCTION THAT FINDS THE NEXT EMPTY POSITION AND UPDATES VALUES OF ROW AND COLUMN INDEXES */
 void find_empty_position(int &row, int &column, const char board[9][9]);
+
 #endif

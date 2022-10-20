@@ -11,7 +11,7 @@ int main() {
   char board[9][9];
 
   /* This section illustrates the use of the pre-supplied helper functions. */
-  // cout << "============= Pre-supplied functions =============\n\n";
+  cout << "============= Pre-supplied functions =============\n\n";
 
   cout << "Calling load_board():\n";
   load_board("easy.dat", board);
@@ -21,7 +21,7 @@ int main() {
   display_board(board);
   cout << "Done!\n\n";
 
-   cout << "=================== Question 1 ===================\n\n";
+  cout << "=================== Question 1 ===================\n\n";
 
   load_board("easy.dat", board);
   cout << "Board is ";
@@ -58,7 +58,7 @@ int main() {
   }
   cout << "complete.\n\n";
 
-  // Testing a board which only has 5 rows
+  // Testing a board which only has 5 rows but is otherwise completed
   // The columns and rows outside of these dimensions are removed from 'easy-solution.dat'
   // Returns false as the board contains less rows than required
   load_board("easy-solution.dat", board);
@@ -106,7 +106,7 @@ int main() {
 
   // Testing row_check function
   // Try putting '4' into a column and sub-board that do not contain the digit, but such that the row does
-  // Returns false as there is already a '4' in row D, and does not change board                 
+  // Returns false as there is already a '4' in row D, and does not change board              
   cout << "Putting '4' into D7 is ";
   if (!make_move("D7", '4', board)) {
     cout << "NOT ";
@@ -162,6 +162,17 @@ int main() {
   }
   cout << '\n';
 
+  // Testing saving a board that is read only
+  // Created a file 'read-only.dat' that is a copy of easy.dat but permissions are changed to read-only for all users
+  // Returns false since cannot write into a read-only file
+  load_board("easy.dat", board);
+  if (save_board("read-only.dat", board)) {
+    cout << "Save read-only board to 'read-only-copy' successful.\n";
+  } else {
+    cout << "Save read-only board failed.\n";
+  }
+  cout << '\n';
+  
   // Testing saving a board that contains an invalid character
   // One position in the easy.dat board is changed to '!'
   // Returns false because board contains an invalid character
@@ -212,9 +223,8 @@ int main() {
   // Returns false as the board contains less rows than required
   load_board("easy-solution.dat", board);
   for (int row=5; row<9; row++){
-    for(int column=0; column<9; column++){
+    for(int column=0; column<9; column++)
 	board[row][column]='\0';
-      }
   }
   if (save_board("short.dat", board)) {
     cout << "Save board that only has 5 rows to 'short.dat' successful.\n";
@@ -222,8 +232,8 @@ int main() {
     cout << "Save board that only has 5 rows failed.\n";
   }
   cout << '\n';
-  
-  //cout << "=================== Question 4 ===================\n\n";
+
+  cout << "=================== Question 4 ===================\n\n";
 
   load_board("easy.dat", board);
   if (solve_board(board)) {
@@ -296,61 +306,61 @@ int main() {
   // Note#2: these tests have to be run separately to reset the static variables to 0.
   
   //MYSTERY1.DAT: depth = 421547 and backtrack_count=421488.
-  // load_board("mystery1.dat", board);
-  // if (solve_board(board)) {
-  //   cout << "The mystery1 board has a solution:\n";
-  //   display_board(board);
-  // } else {
-  //   cout << "A solution cannot be found.\n";
-  //   display_board(board);
-  // }
-  // cout << '\n';
+  load_board("mystery1.dat", board);
+  if (solve_board(board)) {
+    cout << "The mystery1 board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
 
-  // //MYSTERY2.DAT: imossible to solve
-  // load_board("mystery2.dat", board);
-  // if (solve_board(board)) {
-  //   cout << "The mystery2 board has a solution:\n";
-  //   display_board(board);
-  // } else {
-  //   cout << "A solution cannot be found.\n";
-  //   display_board(board);
-  // }
-  // cout << '\n';
+  //MYSTERY2.DAT: imossible to solve
+  load_board("mystery2.dat", board);
+  if (solve_board(board)) {
+    cout << "The mystery2 board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
 
-  // //MYSTERY3.DAT: depth = 14134 and backtrack_count=14076
-  // load_board("mystery3.dat", board);
-  // if (solve_board(board)) {
-  //   cout << "The mystery3 board has a solution:\n";
-  //   display_board(board);
-  // } else {
-  //   cout << "A solution cannot be found.\n";
-  //   display_board(board);
-  // }
-  // cout << '\n';
+  //MYSTERY3.DAT: depth = 14134 and backtrack_count=14076
+  load_board("mystery3.dat", board);
+  if (solve_board(board)) {
+    cout << "The mystery3 board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
 
-  // //TESTING EASY.DAT AND MEDIUM.DAT FOR CONSISTENCY //
+  //TESTING EASY.DAT AND MEDIUM.DAT FOR CONSISTENCY //
   
   //EASY.DAT: depth = 2172 and backtrack_count = 2116
-  // load_board("easy.dat", board);
-  // if (solve_board(board)) {
-  //   cout << "The easy.dat board has a solution:\n";
-  //   display_board(board);
-  // } else {
-  //   cout << "A solution cannot be found.\n";
-  //   display_board(board);
-  // }
-  // cout << '\n';
+  load_board("easy.dat", board);
+  if (solve_board(board)) {
+    cout << "The easy.dat board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
 
-  // // MEDIUM.DAT: depth = 15662 and backtrack_count = 15605
-  //  load_board("medium.dat", board);
-  // if (solve_board(board)) {
-  //   cout << "The medium.dat board has a solution:\n";
-  //   display_board(board);
-  // } else {
-  //   cout << "A solution cannot be found.\n";
-  //   display_board(board);
-  // }
-  // cout << '\n';
+  // MEDIUM.DAT: depth = 15662 and backtrack_count = 15605
+  load_board("medium.dat", board);
+  if (solve_board(board)) {
+    cout << "The medium.dat board has a solution:\n";
+    display_board(board);
+  } else {
+    cout << "A solution cannot be found.\n";
+    display_board(board);
+  }
+  cout << '\n';
 
 
   return 0;
