@@ -288,8 +288,7 @@ bool solve_board(char board[9][9]){
     // convert integers row and column of empty index to valid 'position' argument (of type char)
     char position[]={(char)(row+'A'),(char)(column+'1')};
     // if it is valid to place digit in position, call the solve_board function again, which will try to input a digit for the next empty position
-    // this will repeat until the board is complete
-    // Returns true if it assigned the correct digit, given all the following empty positions have also been assigned the correct digit
+    // returns true if it assigned the correct digit, given all the following empty positions have also been assigned the correct digit
     if(make_move(position,digit,board)){
       if(solve_board(board))
 	return True;

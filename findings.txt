@@ -11,12 +11,12 @@ Summarise your findings here (see specification).
 To determine the difficulty of each of the boards, I consider how many
 times the recursive function solve_board(board) has to be called
 (shown by 'depth') and also how many times the function makes a
-mistake and has to backtrack (shown by back_track). The
+mistake and has to backtrack (shown by backtrack_count). The
 'depth' amount includes the number of mistakes but also the number of
-times another empty spot has to be found, and hence takes into account how empty the board was at the
-start. Therefore, the measure of difficulty indicated by
-backtrack_count is in terms of how many times the computer makes a
-mistake, whereas the the difficulty indicated by the value of 'depth'
+times another empty spot has to be found, and hence takes into account
+how empty the board was at the start. Therefore, the measure of
+difficulty indicated by backtrack_count is in terms of how many times
+the computer makes a mistake, whereas the the difficulty indicated by the value of 'depth'
 is more in terms of the memory the program uses to solve the puzzle,
 as it not only includes the number of mistakes but also the initial emptiness
 of the puzzle.
@@ -28,14 +28,15 @@ indicate the relative difficulty of the boards for a computer using this
 backtracking algortihm. For instance, if the board was designed in a
 way where the top-left corner was empty and is supposed to be filled
 with high digits, a computer that uses the algorithm of iterating from
-'1' to '9' would find the board harder than a human solving it.
+'1' to '9' would find the board harder than a human perhaps would,
+relative to other boards.
 
 **METHOD**
 
 To track the number of times the 'solve_board(board) function is
 called, a static integer 'depth' is added at the start of the 'solve_board(board)' function. It is
 incremented every time the function is called and printed out on the
-screen (this is is now commented-out in the function definition):
+screen (this is is now commented-out in the function definition in sudoku.cpp):
 
 	    static int depth =0;
   	    depth++;
@@ -51,7 +52,7 @@ position. The following is added after the position is set back to
 
 The difference between these two static variables is simply the number
 of empty spaces at the beginning plus one (for when the function is
-called at the end and all positions are filled).
+called when all positions are filled).
 
 **RESULTS**
 
@@ -68,7 +69,8 @@ time the board is solved, and the backtrack_count is 421488. As these
 values are larger than for the board mystery3.dat, it means
 mystery1.dat is extremely hard as the solve_board(board) function made
 more mistakes and had to backtrack more times. And in total the memory
-used by the program was much larger than for mystery3.dat.
+used by the program was much larger than for mystery3.dat as the stack
+grew every time the solve_board was called.
 
 
 IMPOSSIBLE TO SOLVE
