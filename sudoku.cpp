@@ -74,7 +74,7 @@ void display_board(const char board[9][9]) {
 /* Creating a new type 'Logical', where False=0 and True=1 */
 enum Logical {False, True};
 
-/*=================== QUESTION 1 ===================*/
+/*============================ QUESTION 1 ============================*/
 
 /* DEFINITION OF FUNCTION 'is_complete(board)' */
 /* The function returns false if any of the board positions in 
@@ -94,7 +94,7 @@ bool is_complete(char board[9][9]){
 }
 /* END OF FUNCTION DEFINITION */
 
-/* =================== QUESTION 2 =================== */
+/*============================ QUESTION 2 ============================*/
 
 /* FUNCTION DEFINITION OF 'make_move(position, digit, board)'
  * It attempts to place a digit on a Sudoku board at a given position 
@@ -136,7 +136,10 @@ bool make_move(const char position[], char digit, char board[9][9]){
 
   // Return true if the move is valid with respect to the
   // relevant sub-board, row and column.
-  if(subboard_check(position, digit, board) && row_check(position,digit,board) && column_check(position,digit,board)){
+  if(subboard_check(position, digit, board) &&
+     row_check(position,digit,board) &&
+     column_check(position,digit,board)){
+
     board[row_index][column_index]=digit;
     return True;
   }
@@ -239,7 +242,7 @@ bool column_check(const char position[], char digit, const char board[9][9]){
 }
 /* END OF FUNCTION DEFINITION */
 
-/* =================== QUESTION 3 =================== */
+/*============================ QUESTION 3 ============================*/
 
 /* FUNCTION DEFINITION OF 'save_board(filename, board)'
  * Outputs board into file called filename 
@@ -256,8 +259,8 @@ bool save_board(const char* filename, const char board[9][9]){
   int row=0;
   while(out && row<9){
     for(int column=0; column<9; column++){
-      // return false if the board contains a character that
-      // is neither '.' or a digit, or if it contains '0'.
+      /* return false if the board contains a character that
+         is neither '.' or a digit, or if it contains '0'.*/
       if (!(board[row][column] == '.' || isdigit(board[row][column])) || board[row][column]=='0')
 	return False;
       out.put(board[row][column]);
@@ -276,7 +279,7 @@ bool save_board(const char* filename, const char board[9][9]){
 }
 /* END OF FUNCTION DEFINITION */
 
-/* =================== QUESTION 4 =================== */
+/*============================ QUESTION 4 ============================*/
 
 /* FUNCTION DEFINITION OF 'solve_board(board)'
  * Attempts to solve the puzzle recursively 
