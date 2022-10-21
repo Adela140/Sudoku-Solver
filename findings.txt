@@ -54,6 +54,10 @@ The difference between these two static variables is simply the number
 of empty spaces at the beginning plus one (for when the function is
 called when all positions are filled).
 
+Note: As static variables are used, it is important to only test one
+board at a time, or else the values of 'depth' and 'backtrack_count'
+will be cumulative values.
+
 **RESULTS**
 
 HARD DIFFICULTY

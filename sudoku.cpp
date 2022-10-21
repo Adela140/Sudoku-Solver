@@ -301,7 +301,7 @@ bool solve_board(char board[9][9]){
 
   // return true if board has been completed
   if(is_complete(board)){
-    return True;
+       return True;
   }
   // find the next empty position.
   // This void function changes integer values of row and column
