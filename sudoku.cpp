@@ -309,8 +309,8 @@ bool solve_board(char board[9][9]){
   
   // for the empty position, try each digit from '1' to '9'
   for(char digit='1'; digit<='9'; digit++){
-    // convert integers row and column of empty index to valid 'position' argument (of type char)
-    char position[]={(char)(row+'A'),(char)(column+'1')};
+    // convert integers row and column of empty index to valid 'position' argument
+    char position[3]={(char)(row+'A'),(char)(column+'1'),'\0'};
     /* If it is valid to place digit in position, call the solve_board
        function again, which will try to input a digit for the next 
        empty position.
