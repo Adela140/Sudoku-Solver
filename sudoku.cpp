@@ -139,7 +139,8 @@ bool make_move(const char position[], char digit, char board[9][9]){
   if(subboard_check(position, digit, board) &&
      row_check(position,digit,board) &&
      column_check(position,digit,board)){
-    
+
+    // update board to contain the digit in the valid position
     board[row_index][column_index]=digit;
     return True;
   }
