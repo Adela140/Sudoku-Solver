@@ -134,12 +134,12 @@ bool make_move(const char position[], char digit, char board[9][9]){
       return False;
   }
 
-  // Return true if the move is valid with respect to the
-  // relevant sub-board, row and column.
+  // Return true and update board if the move is valid with respect to
+  // the relevant sub-board, row and column.
   if(subboard_check(position, digit, board) &&
      row_check(position,digit,board) &&
      column_check(position,digit,board)){
-
+    
     board[row_index][column_index]=digit;
     return True;
   }
